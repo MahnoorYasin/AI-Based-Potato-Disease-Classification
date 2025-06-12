@@ -1,0 +1,24 @@
+# Ignore model files
+*.h5
+*.keras
+*.tflite
+*.ckpt
+*.pb
+*.pyd
+
+# Ignore saved models
+Saved_models/
+models/
+
+# Ignore virtual environment
+venv/
+.env/
+
+# Ignore cache
+__pycache__/
+.ipynb_checkpoints/
+
+# OS/filesystem stuff
+.DS_Store
+Thumbs.db
+__pycache__/\n*.h5\n.ipynb_checkpoints/\n.DS_Store\n.env
