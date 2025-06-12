@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#4CAF50" />
+    <meta name="description" content="Plant Disease Detection - Upload leaf images to detect diseases" />
+    <!-- Fonts and Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>PotatoAura | Disease Detection</title>
+    <style>
+        /* Common Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Navigation Bar Styles */
+        .navbar {
+            background-color: #2E7D32;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        /* Detection Section */
+        .detection-container {
+            max-width: 800px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .detection-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .detection-header h1 {
+            color: #2E7D32;
+            margin-bottom: 1rem;
+        }
+
+        .upload-area {
+            border: 2px dashed #81C784;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            background-color: rgba(129, 199, 132, 0.1);
+            transition: all 0.3s;
+        }
+
+        .upload-area:hover {
+            background-color: rgba(129, 199, 132, 0.2);
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .file-label {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .file-label:hover {
+            background-color: #388E3C;
+            transform: translateY(-2px);
+        }
+
+        .detect-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #2E7D32;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+
+        .detect-btn:hover {
+            background-color: #1B5E20;
+        }
+
+        .result-area {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border-radius: 8px;
+            background-color: #E8F5E9;
+            display: none;
+        }
+
+        .result-area h2 {
+            color: #2E7D32;
+            margin-bottom: 1rem;
+        }
+
+        .preview-image {
+            max-width: 100%;
+            max-height: 300px;
+            margin: 1rem auto;
+            display: block;
+            border-radius: 8px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1B5E20;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: #A5D6A7;
+        }
+
+        @media (max-width: 768px) {
+            .detection-container {
+                margin: 2rem;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <i class="fas fa-leaf"></i>
+            PotatoAura
+        </a>
+        <div class="nav-links">
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            <a href="detect.html" class="active"><i class="fas fa-search"></i> Detect</a>
+            <a href="about.html"><i class="fas fa-book"></i> About</a>
+            <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+        </div>
+    </nav>
+
+    <!-- Detection Section -->
+    <div class="detection-container">
+        <div class="detection-header">
+            <h1><i class="fas fa-search"></i> Potato Disease Detection</h1>
+            <p>Upload an image of a potato leaf to detect potential diseases</p>
+        </div>
+
+        <div class="upload-area">
+            <input type="file" id="fileInput" class="file-input" accept="image/*">
+            <label for="fileInput" class="file-label">
+                <i class="fas fa-upload"></i> Choose Image
+            </label>
+            <p id="fileName" style="margin-top: 1rem; display: none;">No file selected</p>
+        </div>
+
+        <button class="detect-btn" id="detectBtn" disabled>
+            <i class="fas fa-search"></i> Detect Disease
+        </button>
+
+        <div class="result-area" id="resultArea">
+            <h2>Detection Result</h2>
+            <img id="previewImg" class="preview-image" src="" alt="Preview">
+            <div id="resultContent"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+        <p>&copy; 2025 PotatoAura. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Simple image preview functionality
+        const fileInput = document.getElementById('fileInput');
+        const fileName = document.getElementById('fileName');
+        const detectBtn = document.getElementById('detectBtn');
+        const resultArea = document.getElementById('resultArea');
+        const previewImg = document.getElementById('previewImg');
+        const resultContent = document.getElementById('resultContent');
+
+        fileInput.addEventListener('change', function (e) {
+            if (e.target.files.length > 0) {
+                const file = e.target.files[0];
+                fileName.textContent = file.name;
+                fileName.style.display = 'block';
+                detectBtn.disabled = false;
+
+                // Show preview
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    previewImg.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                fileName.style.display = 'none';
+                detectBtn.disabled = true;
+            }
+        });
+
+        detectBtn.addEventListener('click', function () {
+            // Simulate detection process
+            detectBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Detecting...';
+            detectBtn.disabled = true;
+
+            setTimeout(function () {
+                resultArea.style.display = 'block';
+                detectBtn.innerHTML = '<i class="fas fa-search"></i> Detect Disease';
+                detectBtn.disabled = false;
+
+                // Sample result (replace with actual detection results)
+                resultContent.innerHTML = `
+          <h3>Early Blight Detected</h3>
+          <p><strong>Confidence:</strong> 92%</p>
+          <p><strong>Recommendations:</strong></p>
+          <ul>
+            <li>Apply fungicides containing chlorothalonil or mancozeb</li>
+            <li>Remove infected leaves to prevent spread</li>
+            <li>Improve air circulation around plants</li>
+            <li>Avoid overhead watering</li>
+          </ul>
+        `;
+
+                // Scroll to results
+                resultArea.scrollIntoView({ behavior: 'smooth' });
+            }, 2000);
+        });
+    </script>
+</body>
+
+</html>
